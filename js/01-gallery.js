@@ -41,13 +41,16 @@ if(evt.target.nodeName!=="IMG")
             {
                 instance.close();
             }
+            console.log(event.key)
         })
+        console.log("OPEN")
     },
-    
-		onClose: (instance) => console.log('onClose', instance)}).show()
+     onClose: (instance) => document.removeEventListener('keydown', event=>
+     {
+         console.log("CLOSE")
+         console.log(event.key)
+     })}).show()
 
-}
-
-
+    }
 
 
