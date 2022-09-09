@@ -8,6 +8,7 @@ galleryList.addEventListener('click',onPhotoOpen)
 galleryList.insertAdjacentHTML("beforeend",createMarkup(galleryItems))
 
 
+
 function createMarkup(items){
   const markup= items.map(({preview,original,description})=>
     {
@@ -34,10 +35,19 @@ if(evt.target.nodeName!=="IMG")
 	basicLightbox.create(`
 		<img width="1400" height="900" src="${evt.target.dataset.source}">
 	`, {
-		onShow: (instance) => console.log('onShow', instance),
+		onShow: (instance) => {document.addEventListener('keydown',event=>
+        {
+            if(event.key==="Escape")
+            {
+                instance.close();
+            }
+        })
+    },
+    
 		onClose: (instance) => console.log('onClose', instance)}).show()
 
-
-
 }
+
+
+
 
