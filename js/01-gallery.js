@@ -32,25 +32,35 @@ if(evt.target.nodeName!=="IMG")
     return;
 }
 
-	basicLightbox.create(`
+const instance = basicLightbox.create(    `
+<img width="1400" height="900" src="${evt.target.dataset.source}">
+`,
+    {onShow: instance => { instance.element().querySelector('img').onclick = instance.close;
+    window.addEventListener('keydown', onEscapeClick); },
+    onClose: instance => { window.removeEventListener('keydown', onEscapeClick); },},  );
+
+    function onEscapeClick(event) 
+    { 
+        if (event.key === 'Escape') 
+        {instance.close(); return; } 
+    }
+
+
+
+
+
+    {/* basicLightbox.create(`
 		<img width="1400" height="900" src="${evt.target.dataset.source}">
 	`, {
-		onShow: (instance) => {document.addEventListener('keydown',event=>
-        {
-            if(event.key==="Escape")
-            {
-                instance.close();
-            }
-            console.log(event.key)
-        })
+		onShow: (instance) => {document.addEventListener('keydown',(evt,res)=>onEscapeClick(evt,res))
         console.log("OPEN")
     },
-     onClose: (instance) => document.removeEventListener('keydown', event=>
+     onClose: () => document.removeEventListener('keydown', event=>
      {
          console.log("CLOSE")
          console.log(event.key)
      })}).show()
 
-    }
+    } */}}
 
-
+    

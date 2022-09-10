@@ -17,7 +17,5 @@ function createMarkup(items)
     return markup
 }
 
+new SimpleLightbox('.gallery__item', {captionsData:'alt',captonDelay:'250ms'});
 
-(function() {
-    var $gallery = new SimpleLightbox('.gallery__item', {captions:"true",captionSelector:'img',captionType:"alt",captionPosition:"bottom",captonDelay:"250ms"});
-})();
