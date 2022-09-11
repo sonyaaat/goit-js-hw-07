@@ -1,14 +1,7 @@
 import { galleryItems } from './gallery-items.js';
 // Change code below this line
-
 const galleryList=document.querySelector(".gallery");
-
 galleryList.addEventListener('click',onPhotoOpen)
-
-galleryList.insertAdjacentHTML("beforeend",createMarkup(galleryItems))
-
-
-
 function createMarkup(items){
   const markup= items.map(({preview,original,description})=>
     {
@@ -25,42 +18,30 @@ function createMarkup(items){
     }).join('');
     return markup;
 }
-
+galleryList.insertAdjacentHTML("beforeend",createMarkup(galleryItems))
 function onPhotoOpen(evt){
 if(evt.target.nodeName!=="IMG")
 {
     return;
 }
-
 const instance = basicLightbox.create(    `
 <img width="1400" height="900" src="${evt.target.dataset.source}">
 `,
-    {onShow: instance => { instance.element().querySelector('img').onclick = instance.close;
+    {onShow: () => { instance.element().querySelector('img').onclick = instance.close;
     window.addEventListener('keydown', onEscapeClick); },
-    onClose: instance => { window.removeEventListener('keydown', onEscapeClick); },},  );
-
-    function onEscapeClick(event) 
-    { 
-        if (event.key === 'Escape') 
-        {instance.close(); return; } 
+    onClose: () => {
+      window.removeEventListener('keydown', onEscapeClick);
+    },},);
+    function onEscapeClick(event)
+    {
+        if (event.key === 'Escape')
+        {instance.close(); return; }
     }
+instance.show();
+    galleryList.addEventListener('click',onPhotoOpen)
 
 
 
+}
 
 
-    {/* basicLightbox.create(`
-		<img width="1400" height="900" src="${evt.target.dataset.source}">
-	`, {
-		onShow: (instance) => {document.addEventListener('keydown',(evt,res)=>onEscapeClick(evt,res))
-        console.log("OPEN")
-    },
-     onClose: () => document.removeEventListener('keydown', event=>
-     {
-         console.log("CLOSE")
-         console.log(event.key)
-     })}).show()
-
-    } */}}
-
-    
